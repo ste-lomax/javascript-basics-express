@@ -173,4 +173,32 @@ app.get('/booleans/:string/starts-with/:char', (req, res) => {
   }
 });
 
+const { getNthElement } = require('./lib/arrays');
+
+app.post('/arrays/element-at-index/:index', (req, res) => {
+  res.json({ result: getNthElement(req.params.index, req.body.array) });
+});
+
+const { addToArray2 } = require('./lib/arrays');
+
+app.post('/arrays/append', (req, res) => {
+  res.json({ result: addToArray2(req.body.value, req.body.array) });
+});
+
+const { elementsStartingWithAVowel } = require('./lib/arrays');
+
+app.post('/arrays/starts-with-vowel', (req, res) => {
+  res.json({ result: elementsStartingWithAVowel(req.body.array) });
+});
+
+const { removeNthElement, removeNthElement2 } = require('./lib/arrays');
+
+app.post('/arrays/remove-element', (req, res) => {
+  if (req.query === undefined) {
+    res.json({ result: removeNthElement2(0, req.body.array) });
+  } else {
+    res.json({ result: removeNthElement2(parseInt(req.query.index), req.body.array) });
+  }
+});
+
 module.exports = app;
